@@ -94,7 +94,54 @@ select re.rest_name, sv.book_table
 from restaurant re left join services sv
 on re.restaurant_id = sv.restaurant_id;
 
+/* 5. Check null values and convert values into numeric for rate column from ratings table */
 
+/* SET SQL_SAFE_UPDATES = 0;
+
+update ratings
+set rate = '0.0'
+where rate = '';
+
+update ratings
+set rate = '0.0'
+where rate = '"NEW"';
+
+update ratings
+set rate = replace(rate, '/5', '');
+
+update ratings
+set rate = trim(both '"' from rate);
+
+UPDATE ratings
+SET rate = '0.0'
+where rate = '-';
+
+ALTER TABLE ratings
+MODIFY COLUMN rate DECIMAL(3,1);
+
+SET SQL_SAFE_UPDATES = 1; */
+
+
+/* 6. Identify most rated cuisines in restaurants*/
+
+select re.rest_name, cu.cuisines, ra.rate
+from restaurant re left join ratings ra
+on re.restaurant_id = ra.restaurant_id
+left join restaurant_cuisine rc
+on re.restaurant_id = rc.restaurant_id
+left join cuisine cu 
+on rc.cuisine_id = cu.cuisine_id;
+
+
+/* 7. Find most common cuisines in each location */
+
+select re.rest_name, lo.location, cu.cuisines
+from location lo right join restaurant re 
+on lo.location_id = re.location_id
+left join restaurant_cuisine rc
+on re.restaurant_id = rc.restaurant_id
+left join cuisine cu 
+on rc.cuisine_id = cu.cuisine_id;
 
 
 
