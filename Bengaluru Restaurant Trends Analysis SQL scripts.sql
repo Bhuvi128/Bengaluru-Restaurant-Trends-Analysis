@@ -82,3 +82,23 @@ from restaurant re left join services sv
 on re.restaurant_id = sv.restaurant_id
 where sv.online_order = 'No';
 
+/* 3. Fetch online and offline restaurants precentage */
+
+select online_order, count(*) order_cnt
+from services
+group by online_order;
+
+/* 4. Identify the restaurants who provide online booking and not? */
+
+select re.rest_name, sv.book_table
+from restaurant re left join services sv
+on re.restaurant_id = sv.restaurant_id;
+
+
+
+
+
+
+
+
+
