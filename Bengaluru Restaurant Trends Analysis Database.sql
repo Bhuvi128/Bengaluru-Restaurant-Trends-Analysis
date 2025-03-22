@@ -2,10 +2,17 @@
 
 -- use restaurant_blr;
 
-/* create table location (
+/*
+create table location (
 location_id	int unsigned not null,
 location text,
 primary key (location_id)
+);
+
+create table listing_type (
+listing_id int unsigned not null,
+listed_rest_type varchar(255),
+primary key (listing_id)
 );
 
 create table restaurant_type (
@@ -25,6 +32,7 @@ create table restaurant (
 restaurant_id int unsigned not null,	
 location_id	int unsigned not null,
 rest_type_id int unsigned not null,
+listing_id int unsigned not null,
 rest_name text,
 address	text,
 phone varchar(300) default null,
@@ -32,7 +40,8 @@ url	text,
 cost_for_two int default null,
 primary key (restaurant_id),
 foreign key (location_id) references location(location_id),
-foreign key (rest_type_id) references restaurant_type(rest_type_id)
+foreign key (rest_type_id) references restaurant_type(rest_type_id),
+foreign key (listing_id) references listing_type(listing_id)
 );
 
 create table restaurant_cuisine (
@@ -64,6 +73,15 @@ LINES TERMINATED BY '\n'
 IGNORE 1 ROWS;
 
 select * from location;
+
+load data infile "C:/ProgramData/MySQL/MySQL Server 8.0/Uploads/listing_type.csv"
+into table listing_type
+FIELDS TERMINATED BY ',' 
+ENCLOSED BY '"' 
+LINES TERMINATED BY '\n'
+IGNORE 1 ROWS;
+
+select * from listing_type;
 
 load data infile "C:/ProgramData/MySQL/MySQL Server 8.0/Uploads/rest_type.csv"
 into table restaurant_type

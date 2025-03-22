@@ -62,42 +62,14 @@ select count(*) tot_null from restaurant_type
 where rest_type is null; -- No null values in rest_type column
 
 
+/* ------------------------------ Data Cleaning ---------------------------------- */
 
-/* ------------------------- Exploratory Data analysis ------------------------ */
+/*
+SET SQL_SAFE_UPDATES = 0;
 
-/* 1. Find Most Frequently Visited Restaurants */
-
-select rest_name, count(*) rest_counts
-from restaurant
-group by rest_name
-order by rest_counts desc
-limit 10;
-
-select * from ratings;
-
-/* 2. Identify the restaurants do not accept online orders */
-
-select re.rest_name, sv.online_order
-from restaurant re left join services sv
-on re.restaurant_id = sv.restaurant_id
-where sv.online_order = 'No';
-
-/* 3. Fetch online and offline restaurants precentage */
-
-select online_order, count(*) order_cnt
-from services
-group by online_order;
-
-/* 4. Identify the restaurants who provide online booking and not? */
-
-select re.rest_name, sv.book_table
-from restaurant re left join services sv
-on re.restaurant_id = sv.restaurant_id;
-
-/* 5. Check null values and convert values into numeric for rate column from ratings table */
-
-/* SET SQL_SAFE_UPDATES = 0;
-
+-- clean ratings table 
+select * from ratings;  
+ 
 update ratings
 set rate = '0.0'
 where rate = '';
@@ -107,10 +79,10 @@ set rate = '0.0'
 where rate = '"NEW"';
 
 update ratings
-set rate = replace(rate, '/5', '');
+set rate = trim(both '"' from rate);
 
 update ratings
-set rate = trim(both '"' from rate);
+set rate = replace(rate, '/5', '');
 
 UPDATE ratings
 SET rate = '0.0'
@@ -119,10 +91,58 @@ where rate = '-';
 ALTER TABLE ratings
 MODIFY COLUMN rate DECIMAL(3,1);
 
-SET SQL_SAFE_UPDATES = 1; */
+-- clean restaurant table
+
+select * from restaurant;
+
+update restaurant
+set rest_name = trim(both '"' from rest_name);
+
+update restaurant
+set address = trim(both '"' from address);
+
+update restaurant
+set phone = trim(both '"' from phone);
+
+update restaurant
+set url = trim(both '"' from url);
+
+SET SQL_SAFE_UPDATES = 1; 
+*/
 
 
-/* 6. Identify most rated cuisines in restaurants*/
+
+/* ------------------------- Exploratory Data analysis ------------------------ */
+
+/* Find Most Frequently Visited Restaurant chains */
+
+select rest_name, count(*) rest_counts
+from restaurant
+group by rest_name
+order by rest_counts desc
+limit 10;
+
+
+/* Identify the restaurants do not accept online orders */
+
+select re.rest_name, sv.online_order
+from restaurant re left join services sv
+on re.restaurant_id = sv.restaurant_id
+where sv.online_order = 'No';
+
+/* Fetch online and offline restaurants precentage */
+
+select online_order, count(*) order_cnt
+from services
+group by online_order;
+
+/* Identify the restaurants who provide online booking and not? */
+
+select re.rest_name, sv.book_table
+from restaurant re left join services sv
+on re.restaurant_id = sv.restaurant_id;
+
+/* Identify most rated cuisines in restaurants*/
 
 select re.rest_name, cu.cuisines, ra.rate
 from restaurant re left join ratings ra
@@ -133,7 +153,7 @@ left join cuisine cu
 on rc.cuisine_id = cu.cuisine_id;
 
 
-/* 7. Find most common cuisines in each location */
+/* Find most common cuisines in each location */
 
 with cuisine_location as (
 select re.rest_name, lo.location, cu.cuisines
