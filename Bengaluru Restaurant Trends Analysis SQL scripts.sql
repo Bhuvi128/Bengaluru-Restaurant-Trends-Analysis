@@ -135,13 +135,18 @@ on rc.cuisine_id = cu.cuisine_id;
 
 /* 7. Find most common cuisines in each location */
 
+with cuisine_location as (
 select re.rest_name, lo.location, cu.cuisines
 from location lo right join restaurant re 
 on lo.location_id = re.location_id
 left join restaurant_cuisine rc
 on re.restaurant_id = rc.restaurant_id
 left join cuisine cu 
-on rc.cuisine_id = cu.cuisine_id;
+on rc.cuisine_id = cu.cuisine_id
+)
+select cuisines, location, count(cuisines) cuisine_cnt 
+from cuisine_location
+group by cuisines, location;
 
 
 
