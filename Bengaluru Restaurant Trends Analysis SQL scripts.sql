@@ -65,7 +65,20 @@ where rest_type is null; -- No null values in rest_type column
 
 /* ------------------------- Exploratory Data analysis ------------------------ */
 
+/* 1. Find Most Frequently Visited Restaurants */
 
+select rest_name, count(*) rest_counts
+from restaurant
+group by rest_name
+order by rest_counts desc
+limit 10;
 
+select * from ratings;
 
+/* 2. Identify the restaurants do not accept online orders */
+
+select re.rest_name, sv.online_order
+from restaurant re left join services sv
+on re.restaurant_id = sv.restaurant_id
+where sv.online_order = 'No';
 
