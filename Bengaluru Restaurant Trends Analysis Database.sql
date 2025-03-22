@@ -1,8 +1,8 @@
 -- create database restaurant_blr;
 
-use restaurant_blr;
+-- use restaurant_blr;
 
-create table location (
+/* create table location (
 location_id	int unsigned not null,
 location text,
 primary key (location_id)
@@ -120,5 +120,5 @@ IGNORE 1 rows;
 select * from ratings;
 
 
-
+*/
 
