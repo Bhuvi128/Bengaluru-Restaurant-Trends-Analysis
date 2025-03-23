@@ -263,16 +263,28 @@ select re.rest_name, sv.book_table
 from restaurant re left join services sv
 on re.restaurant_id = sv.restaurant_id;
 
-/* Identify most rated cuisines in restaurants*/
+/* Identify top most restaurant types */
 
-select re.rest_name, cu.cuisines, ra.rate
-from restaurant re left join ratings ra
-on re.restaurant_id = ra.restaurant_id
+select rt.rest_type, count(distinct re.restaurant_id) total_outlets
+from restaurant re left join restaurant_type rt
+on re.rest_type_id = rt.rest_type_id
+group by rt.rest_type
+order by total_outlets desc
+limit 15;
+
+/* Identify what are the cuisines there for different restaurant types */
+
+select rt.rest_type, cu.cuisines,
+count(distinct re.restaurant_id) total_outlets
+from restaurant re left join restaurant_type rt
+on re.rest_type_id = rt.rest_type_id
 left join restaurant_cuisine rc
 on re.restaurant_id = rc.restaurant_id
-left join cuisine cu 
-on rc.cuisine_id = cu.cuisine_id;
-
+left join cuisine cu
+on rc.cuisine_id = cu.cuisine_id
+group by rt.rest_type, cu.cuisines
+order by total_outlets desc
+limit 15;
 
 /* Find most common cuisines in each location */
 
