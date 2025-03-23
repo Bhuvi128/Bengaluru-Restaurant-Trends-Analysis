@@ -162,7 +162,7 @@ round(avg(ra.rate),2) avg_ratings, sum(ra.votes) total_votings
 from ratings ra right join restaurant re 
 on ra.restaurant_id = re.restaurant_id
 group by re.rest_name
-order by total_outlets desc
+order by total_votings desc
 limit 15;
 
 /* List out restaurants have ratings with 4 or more */
@@ -173,7 +173,7 @@ from ratings ra right join restaurant re
 on ra.restaurant_id = re.restaurant_id
 group by re.rest_name
 having avg_ratings > 4.0 or avg_ratings = 4.0
-order by total_votings desc
+order by total_outlets desc
 limit 15;
 
 
