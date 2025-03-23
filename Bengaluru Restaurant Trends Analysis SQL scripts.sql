@@ -114,7 +114,7 @@ SET SQL_SAFE_UPDATES = 1;
 
 /* ------------------------- Exploratory Data analysis ------------------------ */
 
-/* Find Most Frequent Restaurant chains */
+/* Find the top 10 Most Frequent Restaurant chains */
 
 select rest_name, count(*) rest_counts
 from restaurant
@@ -122,7 +122,7 @@ group by rest_name
 order by rest_counts desc
 limit 10;
 
-/* Identify the most frequent restaurant chains and its category */
+/* Identify the top 12 most frequent restaurant chains and its category */
 
 select re.rest_name, count(*) rest_counts,
 group_concat(distinct li.listed_rest_type) as restaurant_category
@@ -131,6 +131,40 @@ on re.listing_id = li.listing_id
 group by re.rest_name
 order by rest_counts desc
 limit 12;
+
+/* Identify the top 15 most frequently occurring cuisines in restaurants */
+
+select re.rest_name, count(distinct re.restaurant_id) rest_counts,
+group_concat(distinct cu.cuisines) as cuisine_rest
+from restaurant re left join restaurant_cuisine rc
+on re.restaurant_id = rc.restaurant_id
+left join cuisine cu
+on rc.cuisine_id = cu.cuisine_id
+group by re.rest_name
+order by rest_counts desc
+limit 15;
+
+/* Find most common cuisines, restaurants providing */
+
+select cu.cuisines, count(distinct re.restaurant_id) rest_counts
+from restaurant re left join restaurant_cuisine rc
+on re.restaurant_id = rc.restaurant_id
+left join cuisine cu
+on rc.cuisine_id = cu.cuisine_id
+group by cu.cuisines
+order by rest_counts desc
+limit 15;
+
+/* Find the top 15 most frequent restaurant chains along with their ratings and votes */
+
+select re.rest_name, count(distinct re.restaurant_id) total_outlets,
+round(avg(ra.rate),2) avg_ratings, sum(ra.votes) total_votings
+from ratings ra right join restaurant re 
+on ra.restaurant_id = re.restaurant_id
+group by re.rest_name
+order by total_outlets desc
+limit 15;
+
 
 /* Identify the restaurants do not accept online orders */
 
