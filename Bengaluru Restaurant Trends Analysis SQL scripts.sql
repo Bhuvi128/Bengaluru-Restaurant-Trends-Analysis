@@ -114,7 +114,7 @@ SET SQL_SAFE_UPDATES = 1;
 
 /* ------------------------- Exploratory Data analysis ------------------------ */
 
-/* Find Most Frequently Visited Restaurant chains */
+/* Find Most Frequent Restaurant chains */
 
 select rest_name, count(*) rest_counts
 from restaurant
@@ -122,6 +122,15 @@ group by rest_name
 order by rest_counts desc
 limit 10;
 
+/* Identify the most frequent restaurant chains and its category */
+
+select re.rest_name, count(*) rest_counts,
+group_concat(distinct li.listed_rest_type) as restaurant_category
+from restaurant re left join listing_type li
+on re.listing_id = li.listing_id
+group by re.rest_name
+order by rest_counts desc
+limit 12;
 
 /* Identify the restaurants do not accept online orders */
 
@@ -129,6 +138,8 @@ select re.rest_name, sv.online_order
 from restaurant re left join services sv
 on re.restaurant_id = sv.restaurant_id
 where sv.online_order = 'No';
+
+
 
 /* Fetch online and offline restaurants precentage */
 
