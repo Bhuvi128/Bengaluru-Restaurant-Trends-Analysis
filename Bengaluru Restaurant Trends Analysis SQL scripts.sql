@@ -132,6 +132,14 @@ group by re.rest_name
 order by rest_counts desc
 limit 12;
 
+/* Find the most common restaurant category the restaurant chains providing */
+
+select li.listed_rest_type, count(distinct re.restaurant_id) rest_counts
+from restaurant re left join listing_type li
+on re.listing_id = li.listing_id
+group by li.listed_rest_type
+order by rest_counts desc;
+
 /* Identify the top 15 most frequently occurring cuisines in restaurants */
 
 select re.rest_name, count(distinct re.restaurant_id) rest_counts,
@@ -155,6 +163,28 @@ group by cu.cuisines
 order by rest_counts desc
 limit 15;
 
+/* Fetch cost_for_two from restaurant table to calculate summary statistics */
+
+select cost_for_two from restaurant;
+
+/* Identify top 15 restaurant chains and thier cost for two */
+
+select rest_name, count(distinct restaurant_id) total_outlets,
+round(avg(cost_for_two),2) avg_cost_for_two
+from restaurant 
+group by rest_name
+order by total_outlets desc
+limit 15;
+
+/* Identify the top 15 most frequently occurring locations the restaurant chains have */
+
+select lo.location, count(distinct re.restaurant_id) total_outlets
+from location lo right join restaurant re 
+on lo.location_id = re.location_id
+group by lo.location
+order by total_outlets desc
+limit 15;
+
 /* Find the top 15 most frequent restaurant chains along with their ratings and votes */
 
 select re.rest_name, count(distinct re.restaurant_id) total_outlets,
@@ -162,7 +192,7 @@ round(avg(ra.rate),2) avg_ratings, sum(ra.votes) total_votings
 from ratings ra right join restaurant re 
 on ra.restaurant_id = re.restaurant_id
 group by re.rest_name
-order by total_votings desc
+order by avg_ratings desc
 limit 15;
 
 /* List out restaurants have ratings with 4 or more */
@@ -172,10 +202,54 @@ round(avg(ra.rate),2) avg_ratings, sum(ra.votes) total_votings
 from ratings ra right join restaurant re 
 on ra.restaurant_id = re.restaurant_id
 group by re.rest_name
-having avg_ratings > 4.0 or avg_ratings = 4.0
-order by total_outlets desc
+having avg_ratings >= 4.0
+order by avg_ratings desc
 limit 15;
 
+/* Identify which category the restaurants having rating 4 or more */
+
+select re.rest_name, 
+group_concat(distinct li.listed_rest_type) restaurant_category,
+count(distinct re.restaurant_id) total_outlets,
+round(avg(ra.rate),2) avg_ratings, sum(ra.votes) total_votings
+from ratings ra right join restaurant re 
+on ra.restaurant_id = re.restaurant_id
+left join listing_type li
+on re.listing_id = li.listing_id
+group by re.rest_name
+having avg_ratings >= 4.0
+order by avg_ratings desc
+limit 15;
+
+/* Identify the restaurants having rating 4 and above with their cuisines */
+
+create view rest_cuisines_rating_4 as
+select re.rest_name, 
+group_concat(distinct cu.cuisines) rest_cuisines,
+count(distinct re.restaurant_id) total_outlets,
+round(avg(ra.rate),2) avg_ratings, sum(ra.votes) total_votings
+from ratings ra right join restaurant re 
+on ra.restaurant_id = re.restaurant_id
+left join restaurant_cuisine rc 
+on re.restaurant_id = rc.restaurant_id
+left join cuisine cu
+on rc.cuisine_id = cu.cuisine_id
+group by re.rest_name
+having avg_ratings >= 4.0
+order by avg_ratings desc
+limit 15;
+
+/* Identify restaurants with rating 4 and above and thier cost for two */
+
+select re.rest_name, count(distinct re.restaurant_id) total_outlets,
+round(avg(ra.rate),2) avg_ratings, sum(ra.votes) total_votings,
+round(avg(re.cost_for_two),2) avg_cost_for_two
+from restaurant re inner join ratings ra
+on re.restaurant_id = ra.restaurant_id
+group by rest_name
+having avg_ratings >= 4.0
+order by avg_ratings desc
+limit 15;
 
 /* Identify the restaurants do not accept online orders */
 
