@@ -251,15 +251,6 @@ having avg_ratings >= 4.0
 order by avg_ratings desc
 limit 15;
 
-/* Identify the restaurants do not accept online orders */
-
-select re.rest_name, sv.online_order
-from restaurant re left join services sv
-on re.restaurant_id = sv.restaurant_id
-where sv.online_order = 'No';
-
-
-
 /* Fetch online and offline restaurants precentage */
 
 select online_order, count(*) order_cnt
