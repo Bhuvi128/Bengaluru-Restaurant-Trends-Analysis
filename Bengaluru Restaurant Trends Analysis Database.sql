@@ -15,6 +15,12 @@ listed_rest_type varchar(255),
 primary key (listing_id)
 );
 
+create table listing_city (
+listing_city_id	int unsigned not null,
+listed_city varchar(300),
+primary key (listing_city_id)
+);
+
 create table restaurant_type (
 rest_type_id int unsigned not null,	
 rest_type text,
@@ -33,6 +39,7 @@ restaurant_id int unsigned not null,
 location_id	int unsigned not null,
 rest_type_id int unsigned not null,
 listing_id int unsigned not null,
+listing_city_id int unsigned not null,
 rest_name text,
 address	text,
 phone varchar(300) default null,
@@ -41,7 +48,8 @@ cost_for_two int default null,
 primary key (restaurant_id),
 foreign key (location_id) references location(location_id),
 foreign key (rest_type_id) references restaurant_type(rest_type_id),
-foreign key (listing_id) references listing_type(listing_id)
+foreign key (listing_id) references listing_type(listing_id),
+foreign key (listing_city_id) references listing_city(listing_city_id)
 );
 
 create table restaurant_cuisine (
@@ -82,6 +90,15 @@ LINES TERMINATED BY '\n'
 IGNORE 1 ROWS;
 
 select * from listing_type;
+
+load data infile "C:/ProgramData/MySQL/MySQL Server 8.0/Uploads/listing_city.csv"
+into table listing_city
+FIELDS TERMINATED BY ',' 
+ENCLOSED BY '"' 
+LINES TERMINATED BY '\n'
+IGNORE 1 ROWS;
+
+select * from listing_city;
 
 load data infile "C:/ProgramData/MySQL/MySQL Server 8.0/Uploads/rest_type.csv"
 into table restaurant_type
@@ -136,7 +153,4 @@ LINES TERMINATED BY '\n'
 IGNORE 1 rows;
 
 select * from ratings;
-
-
 */
-

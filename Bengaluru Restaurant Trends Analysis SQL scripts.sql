@@ -305,6 +305,16 @@ group by rt.rest_type
 order by total_outlets desc
 limit 15;
 
+/* Identify the top most restaurant types and their average cost for two */
+
+select rt.rest_type, count(distinct re.restaurant_id) total_outlets,
+round(avg(re.cost_for_two),2) avg_cost_two
+from restaurant_type rt right join restaurant re
+on rt.rest_type_id = re.rest_type_id
+group by rt.rest_type
+order by total_outlets desc
+limit 15;
+
 /* Find most common cuisines in each location */
 
 with cuisine_location as (
