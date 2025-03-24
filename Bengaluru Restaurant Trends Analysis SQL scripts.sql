@@ -163,6 +163,23 @@ group by cu.cuisines
 order by rest_counts desc
 limit 15;
 
+/* Find the top 15 most frequent restaurant chains along with their ratings and votes */
+
+select re.rest_name, count(distinct re.restaurant_id) total_outlets,
+round(avg(ra.rate),2) avg_ratings, sum(ra.votes) total_votings
+from ratings ra right join restaurant re 
+on ra.restaurant_id = re.restaurant_id
+group by re.rest_name
+order by total_outlets desc
+limit 15;
+
+/* Check relationship between average ratings and total votings */
+
+select rate, count(*) rest_counts, round(avg(votes),2) avg_votes 
+from ratings
+group by rate
+order by rate desc;
+
 /* Fetch cost_for_two from restaurant table to calculate summary statistics */
 
 select cost_for_two from restaurant;
@@ -183,16 +200,6 @@ from location lo right join restaurant re
 on lo.location_id = re.location_id
 group by lo.location
 order by total_outlets desc
-limit 15;
-
-/* Find the top 15 most frequent restaurant chains along with their ratings and votes */
-
-select re.rest_name, count(distinct re.restaurant_id) total_outlets,
-round(avg(ra.rate),2) avg_ratings, sum(ra.votes) total_votings
-from ratings ra right join restaurant re 
-on ra.restaurant_id = re.restaurant_id
-group by re.rest_name
-order by avg_ratings desc
 limit 15;
 
 /* List out restaurants have ratings with 4 or more */
@@ -285,6 +292,8 @@ on rc.cuisine_id = cu.cuisine_id
 group by rt.rest_type, cu.cuisines
 order by total_outlets desc
 limit 15;
+
+
 
 /* Find most common cuisines in each location */
 
