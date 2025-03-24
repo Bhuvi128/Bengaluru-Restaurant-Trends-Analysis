@@ -279,7 +279,7 @@ group by rt.rest_type
 order by total_outlets desc
 limit 15;
 
-/* Identify what are the cuisines there for different restaurant types */
+/* Identify what are the cuisines there for top most restaurant types */
 
 select rt.rest_type, cu.cuisines,
 count(distinct re.restaurant_id) total_outlets
@@ -293,7 +293,17 @@ group by rt.rest_type, cu.cuisines
 order by total_outlets desc
 limit 15;
 
+/* Identify the top most restaurant types and their average ratings and total votings */
 
+select rt.rest_type, count(distinct re.restaurant_id) total_outlets,
+round(avg(ra.rate),2) avg_ratings, sum(ra.votes) total_votings
+from ratings ra right join restaurant re 
+on ra.restaurant_id = re.restaurant_id
+left join restaurant_type rt
+on re.rest_type_id = rt.rest_type_id
+group by rt.rest_type
+order by total_outlets desc
+limit 15;
 
 /* Find most common cuisines in each location */
 
