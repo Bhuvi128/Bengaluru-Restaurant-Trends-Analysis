@@ -315,6 +315,61 @@ group by rt.rest_type
 order by total_outlets desc
 limit 15;
 
+/* Identify the top most restaurant types and thier city location */
+
+select rt.rest_type, lc.listed_city,
+count(distinct re.restaurant_id) total_outlets
+from restaurant_type rt right join restaurant re
+on rt.rest_type_id = re.rest_type_id
+left join listing_city lc
+on re.listing_city_id = lc.listing_city_id
+group by rt.rest_type, lc.listed_city
+order by total_outlets desc
+limit 30;
+
+/* Find the top most city, the restaurant chains have */
+
+select lc.listed_city, count(distinct re.restaurant_id) total_outlets
+from restaurant re left join listing_city lc
+on re.listing_city_id = lc.listing_city_id
+group by lc.listed_city
+order by total_outlets desc
+limit 15;
+
+/* Identify the top most city and thier restaurant category */
+
+select lc.listed_city, li.listed_rest_type,
+count(distinct re.restaurant_id) total_outlets
+from listing_city lc right join restaurant re
+on lc.listing_city_id = re.listing_city_id
+left join listing_type li
+on re.listing_id = li.listing_id
+group by lc.listed_city, li.listed_rest_type
+order by total_outlets desc
+limit 15;
+
+/* Identify the top most restaurant city with thier ratings */
+
+select lc.listed_city, count(distinct re.restaurant_id) total_outlets,
+round(avg(ra.rate),2) avg_ratings, sum(ra.votes) total_votings
+from listing_city lc right join restaurant re 
+on lc.listing_city_id = re.listing_city_id
+left join ratings ra
+on re.restaurant_id = ra.restaurant_id
+group by lc.listed_city
+order by total_outlets desc
+limit 15;
+
+/* Identify the top most restaurant city with their average cost for two */
+
+select lc.listed_city, count(distinct re.restaurant_id) total_outlets,
+round(avg(re.cost_for_two),2) avg_cost_two
+from listing_city lc right join restaurant re
+on lc.listing_city_id = re.listing_city_id
+group by lc.listed_city
+order by total_outlets desc
+limit 15;
+
 /* Find most common cuisines in each location */
 
 with cuisine_location as (
