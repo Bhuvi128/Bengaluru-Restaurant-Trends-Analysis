@@ -370,6 +370,44 @@ group by lc.listed_city
 order by total_outlets desc
 limit 15;
 
+/* Identify the top most restaurant with thier cuisines */
+
+select lc.listed_city, cu.cuisines,
+count(distinct re.restaurant_id) total_outlets
+from restaurant re left join listing_city lc
+on re.listing_city_id = lc.listing_city_id
+left join restaurant_cuisine rc
+on re.restaurant_id = rc.restaurant_id
+left join cuisine cu
+on rc.cuisine_id = cu.cuisine_id
+group by lc.listed_city, cu.cuisines
+order by total_outlets desc
+limit 30;
+
+/* Find the restaurant city providing and not providing online order */
+
+select lc.listed_city, sv.online_order,
+count(distinct re.restaurant_id) total_outlets
+from services sv right join restaurant re 
+on sv.restaurant_id = re.restaurant_id
+left join listing_city lc
+on re.listing_city_id = lc.listing_city_id
+group by lc.listed_city, sv.online_order
+order by total_outlets desc
+limit 30;
+
+/* Identify the restaurant city providing and not providing table booking */
+
+select lc.listed_city, sv.book_table,
+count(distinct re.restaurant_id) total_outlets
+from services sv right join restaurant re 
+on sv.restaurant_id = re.restaurant_id
+left join listing_city lc
+on re.listing_city_id = lc.listing_city_id
+group by lc.listed_city, sv.book_table
+order by total_outlets desc
+limit 30;
+
 /* Find most common cuisines in each location */
 
 with cuisine_location as (
