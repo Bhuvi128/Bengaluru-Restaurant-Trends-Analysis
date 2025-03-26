@@ -107,6 +107,12 @@ set phone = trim(both '"' from phone);
 update restaurant
 set url = trim(both '"' from url);
 
+UPDATE services 
+SET book_table = TRIM(book_table);
+
+UPDATE services 
+SET book_table = REPLACE(book_table, CHAR(13), '');
+
 SET SQL_SAFE_UPDATES = 1; 
 */
 
@@ -202,6 +208,38 @@ group by lo.location
 order by total_outlets desc
 limit 15;
 
+/* Find the top 15 restaurant chains with thier restaurant type */
+
+select re.rest_name, count(distinct re.restaurant_id) total_outlets,
+group_concat(distinct rt.rest_type) rest_type
+from restaurant re left join restaurant_type rt
+on re.rest_type_id = rt.rest_type_id
+group by re.rest_name
+order by total_outlets desc
+limit 15;
+
+/* Identify the top 15 restaurant chains who providing and not providing online orders */
+
+select re.rest_name,
+count(distinct case when sv.online_order = 'Yes' then re.restaurant_id end) provide_online_order,
+count(distinct case when sv.online_order = 'No' then re.restaurant_id end) does_not_provide_online_order
+from restaurant re left join services sv
+on re.restaurant_id = sv.restaurant_id
+group by re.rest_name
+order by (provide_online_order + does_not_provide_online_order) desc
+limit 15;
+
+/* Identify top 15 restaurant chains who providing and not providing table booking */
+
+select re.rest_name,
+count(distinct case when sv.book_table = 'Yes' then re.restaurant_id end) provide_table_booking,
+count(distinct case when sv.book_table = 'No' then re.restaurant_id end) does_not_provide_table_booking
+from restaurant re left join services sv
+on re.restaurant_id = sv.restaurant_id
+group by re.rest_name
+order by (provide_table_booking + does_not_provide_table_booking) desc
+limit 15;
+
 /* List out restaurants have ratings with 4 or more */
 
 select re.rest_name, count(distinct re.restaurant_id) total_outlets,
@@ -254,6 +292,50 @@ round(avg(re.cost_for_two),2) avg_cost_for_two
 from restaurant re inner join ratings ra
 on re.restaurant_id = ra.restaurant_id
 group by rest_name
+having avg_ratings >= 4.0
+order by avg_ratings desc
+limit 15;
+
+/* Identify restaurant chains having 4 and above rating with thier restaurant type */
+
+select re.rest_name, count(distinct re.restaurant_id) total_outlets,
+group_concat(distinct rt.rest_type) rest_type,
+round(avg(ra.rate),2) avg_ratings, sum(ra.votes) total_votings
+from restaurant re left join restaurant_type rt
+on re.rest_type_id = rt.rest_type_id
+left join ratings ra
+on re.restaurant_id = ra.restaurant_id
+group by re.rest_name
+having avg_ratings >= 4.0
+order by avg_ratings desc
+limit 15;
+
+/* List out the restaurant chains with rating 4 and above with online order status */
+
+select re.rest_name,
+count(distinct case when sv.online_order = 'Yes' then re.restaurant_id end) online_order,
+count(distinct case when sv.online_order = 'No' then re.restaurant_id end) offline_order,
+round(avg(ra.rate),2) avg_ratings, sum(ra.votes) total_votings
+from restaurant re left join ratings ra
+on re.restaurant_id = ra.restaurant_id
+left join services sv
+on re.restaurant_id = sv.restaurant_id
+group by re.rest_name
+having avg_ratings >= 4.0
+order by avg_ratings desc
+limit 15;
+
+/* List out restaurant chains with rating 4 and above with table booking status */
+
+select re.rest_name,
+count(distinct case when sv.book_table = 'Yes' then re.restaurant_id end) providing_table_booking,
+count(distinct case when sv.book_table = 'No' then re.restaurant_id end) does_not_providing_table_booking,
+round(avg(ra.rate),2) avg_ratings, sum(ra.votes) total_votings
+from restaurant re left join ratings ra
+on re.restaurant_id = ra.restaurant_id
+left join services sv
+on re.restaurant_id = sv.restaurant_id
+group by re.rest_name
 having avg_ratings >= 4.0
 order by avg_ratings desc
 limit 15;
@@ -313,6 +395,32 @@ from restaurant_type rt right join restaurant re
 on rt.rest_type_id = re.rest_type_id
 group by rt.rest_type
 order by total_outlets desc
+limit 15;
+
+/* Find whcih restaurant types providing and not providing online order */
+
+select rt.rest_type,
+count(distinct case when sv.online_order = 'Yes' then re.restaurant_id end) provide_online_order,
+count(distinct case when sv.online_order = 'No' then re.restaurant_id end) does_not_provide_online_order
+from restaurant re left join services sv
+on re.restaurant_id = sv.restaurant_id
+left join restaurant_type rt
+on re.rest_type_id = rt.rest_type_id
+group by rt.rest_type
+order by (provide_online_order + does_not_provide_online_order) desc
+limit 15;
+
+/* Find which restaurant types providing and not providing table booking */
+
+select rt.rest_type,
+count(distinct case when sv.book_table = 'Yes' then re.restaurant_id end) provide_table_booking,
+count(distinct case when sv.book_table = 'No' then re.restaurant_id end) does_not_provide_table_booking
+from restaurant re left join services sv
+on re.restaurant_id = sv.restaurant_id
+left join restaurant_type rt
+on re.rest_type_id = rt.rest_type_id
+group by rt.rest_type
+order by (provide_table_booking + does_not_provide_table_booking) desc
 limit 15;
 
 /* Identify the top most restaurant types and thier city location */
@@ -408,20 +516,7 @@ group by lc.listed_city, sv.book_table
 order by total_outlets desc
 limit 30;
 
-/* Find most common cuisines in each location */
 
-with cuisine_location as (
-select re.rest_name, lo.location, cu.cuisines
-from location lo right join restaurant re 
-on lo.location_id = re.location_id
-left join restaurant_cuisine rc
-on re.restaurant_id = rc.restaurant_id
-left join cuisine cu 
-on rc.cuisine_id = cu.cuisine_id
-)
-select cuisines, location, count(cuisines) cuisine_cnt 
-from cuisine_location
-group by cuisines, location;
 
 
 
