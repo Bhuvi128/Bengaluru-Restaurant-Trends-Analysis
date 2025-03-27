@@ -169,6 +169,16 @@ group by cu.cuisines
 order by rest_counts desc
 limit 15;
 
+/* Fetch ratings and votings for restaurant chains to calculate summary statistics and its distribution analysis */
+
+select re.rest_name,
+round(avg(ra.rate),2) avg_ratings,
+sum(ra.votes) total_votings
+from restaurant re left join ratings ra
+on re.restaurant_id = ra.restaurant_id
+group by re.rest_name
+order by total_votings desc;
+
 /* Find the top 15 most frequent restaurant chains along with their ratings and votes */
 
 select re.rest_name, count(distinct re.restaurant_id) total_outlets,
@@ -186,9 +196,19 @@ from ratings
 group by rate
 order by rate desc;
 
-/* Fetch cost_for_two from restaurant table to calculate summary statistics */
+/* Fetch cost_for_two from restaurant table to calculate summary statistics and its distribution analysis */
 
 select cost_for_two from restaurant;
+
+/* Check relationship between cost for two, ratings and votings */
+
+select round(avg(re.cost_for_two),2) avg_cost,
+round(avg(ra.rate),2) avg_ratings,
+sum(ra.votes) total_votings
+from restaurant re left join ratings ra
+on re.restaurant_id = ra.restaurant_id
+group by re.rest_name
+order by avg_cost desc;
 
 /* Identify top 15 restaurant chains and thier cost for two */
 
@@ -516,7 +536,15 @@ group by lc.listed_city, sv.book_table
 order by total_outlets desc
 limit 30;
 
+/* check correlation between numerical coulmns */
 
+select round(avg(re.cost_for_two),2) avg_cost,
+round(avg(ra.rate),2) avg_ratings,
+sum(ra.votes) total_votings,
+count(distinct re.restaurant_id) total_outlets
+from ratings ra right join restaurant re 
+on ra.restaurant_id = re.restaurant_id
+group by re.rest_name;
 
 
 
