@@ -1,3 +1,16 @@
+/* --------------------------------- Bengaluru Restaurant Trend Analysis ----------------------------------------- */
+
+-- Problem Statement:
+/* 
+Bengaluru is a paradise for food lovers, offering over 12,000 restaurants with cuisines from all over the world. 
+Despite the growing demand and daily openings of new restaurants, it remains challenging for newcomers to compete with 
+well-established ones due to high costs, manpower issues, and stiff competition. This Zomato dataset helps analyze 
+restaurant trends, customer preferences, and ratings across different neighborhoods in Bengaluru. 
+It aims to guide new restaurants in choosing the right location, cuisine, pricing, and setup by understanding the 
+factors that influence success in the city's diverse food scene.
+*/
+
+
 use restaurant_blr;
 
 /* ----------------------- check waht are the tables are in restaurant_blr database ---------------- */
