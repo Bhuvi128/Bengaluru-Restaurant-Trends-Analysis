@@ -133,7 +133,7 @@ group by sv.online_order
 order by total_outlets desc;
 ```
 <p>
-  <a href="https://github.com/Bhuvi128/Hospitality-Revenue-Optimization-Analysis/blob/main/Hospitality%20Revenue%20Analysis.sql" target="_blank" style="text-decoration:none;">
+  <a href="https://github.com/Bhuvi128/Bengaluru-Restaurant-Trends-Analysis/blob/main/Bengaluru%20Restaurant%20Trends%20Analysis%20SQL%20scripts.sql" target="_blank" style="text-decoration:none;">
     <img src="https://img.shields.io/badge/View-MySQL_Script-purple?style=for-the-badge&logo=mysql&logoColor=white" alt="MySQL Script">
   </a>
 </p>
@@ -184,32 +184,44 @@ Built an interactive Tableau dashboard to empower stakeholders with real-time in
 
 ### 📝Results/Findings
 
-- <b>Top Restaurant Chains</b>
-  - Cafe Coffee Day, McDonald's, and Baskin Robbins dominate the Bengaluru market.
+- <b>Dominance of Major Chains:</b>
+  - The Bengaluru restaurant landscape is heavily influenced by popular chains like Cafe Coffee Day, McDonald's, and Baskin-Robbins, indicating strong customer preference for recognizable brands.
     
-- <b>Cuisine Trends</b>
-  - North Indian, South Indian, and Chinese cuisines are the most popular.
+- <b>High Demand for Dessert and Beverages:</b>
+  - The Bengaluru restaurant landscape is heavily influenced by popular chains like Cafe Coffee Day, McDonald's, and Baskin Robbins, indicating strong customer preference for recognizable brands.
     
-- <b>Location-Based Preferences:</b>
-  - Premium restaurants thrive in **Koramangala & Indiranagar**  
-  - Budget-friendly options perform well in **BTM Layout & Whitefield** 
+- <b>Casual Dining and Quick Bites are Preferred:</b>
+  - The majority of outlets fall under Casual Dining, Quick Bites, and Cafes, showing that customers favor relaxed and accessible dining experiences.
+
+- <b>Popular Cuisines:</b>
+  - North Indian, South Indian, and Chinese are the most common cuisines offered, reflecting local tastes and preferences.
  
+- <b>Neighborhood Trends:</b>
+  - Areas like BTM, HSR Layout, and Koramangala host a dense concentration of restaurants, making them hotspots for food businesses but also increasing competition.
 
-## 🔥 Key Insights
-✔️ **Top Restaurant Chains:** Cafe Coffee Day, McDonald's, and Baskin Robbins dominate the Bengaluru market.  
-✔️ **Cuisine Trends:** North Indian, South Indian, and Chinese cuisines are the most popular.  
-✔️ **Location-Based Preferences:**
-   - Premium restaurants thrive in **Koramangala & Indiranagar**  
-   - Budget-friendly options perform well in **BTM Layout & Whitefield**  
-✔️ **Pricing vs Ratings:** Moderate-to-premium pricing attracts better ratings and repeat customers.  
+- <b>Online Delivery Popularity:</b>
+  - A large number of restaurants offer online delivery, suggesting the growing reliance on food delivery apps among Bengaluru residents.
 
-## 🚀 Business Recommendations
-📍 **Location Strategy:** IT hubs (Koramangala, Indiranagar) for premium restaurants; residential areas (BTM Layout, Whitefield) for budget-friendly restaurants.  
-🍽 **Cuisine Selection:** North Indian, South Indian, and Chinese have the highest customer demand.  
-💰 **Pricing Strategy:** Moderate pricing attracts better ratings; premium pricing works in high-income areas.  
-🏬 **Restaurant Type:** Fine and casual dining receive higher ratings than quick-service restaurants.  
+- <b>Price and Ratings Relationship:</b>
+  - There isn’t a strict correlation between high pricing and high ratings. Reasonably priced restaurants often maintain strong customer satisfaction through quality and service.
 
-## Technologies Used
-- 🐍 Python
-- 🗄️ MySQL
-- 📜 Pandas, SQLAlchemy
+### 📝🚀Recommendations
+
+- <b>New Entrants Should Focus on High-Demand Locations:</b>
+Areas such as Koramangala, BTM, and HSR Layout are ideal due to high foot traffic and customer activity, though competition is also higher.
+
+- <b>Consider Offering Dessert or Beverage Options:</b>
+Given the success of dessert chains, incorporating such items can attract additional customer segments and boost average order value.
+
+- <b>Opt for Quick Bites or Cafe Formats:</b>
+For lower startup and operating costs with high customer turnover, focusing on Quick Bites or Cafe formats can be a strategic entry point.
+
+- <b>Offer Online Delivery Services:</b>
+To remain competitive and meet customer expectations, ensure integration with major food delivery platforms.
+
+- <b>Keep Prices Reasonable Without Compromising Quality:</b>
+High ratings do not necessarily require high prices. Focus on maintaining quality and service to achieve strong customer loyalty.
+
+- <b>Leverage Popular Cuisines:</b>
+Starting with familiar and in-demand cuisines like North Indian and South Indian can help attract a larger customer base, especially in new setups.
+
