@@ -201,7 +201,7 @@ Built an interactive Tableau dashboard to empower stakeholders with real-time in
   - The Bengaluru restaurant landscape is heavily influenced by popular chains like Cafe Coffee Day, McDonald's, and Baskin-Robbins, indicating strong customer preference for recognizable brands.
     
 - <b>High Demand for Dessert and Beverages:</b>
-  - The Bengaluru restaurant landscape is heavily influenced by popular chains like Cafe Coffee Day, McDonald's, and Baskin Robbins, indicating strong customer preference for recognizable brands.
+  - Chains like Corner House Ice Cream, Sweet Truth, and The Chocolate Heaven highlight the popularity of dessert and beverage-focused outlets across the city.
     
 - <b>Casual Dining and Quick Bites are Preferred:</b>
   - The majority of outlets fall under Casual Dining, Quick Bites, and Cafes, showing that customers favor relaxed and accessible dining experiences.
