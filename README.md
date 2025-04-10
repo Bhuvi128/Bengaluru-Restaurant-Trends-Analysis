@@ -133,7 +133,7 @@ group by sv.online_order
 order by total_outlets desc;
 ```
 <p>
-  <a href="https://github.com/Bhuvi128/Hospitality-Revenue-Optimization-Analysis/blob/main/Hospitality%20Revenue%20Analysis.sql" target="_blank" style="text-decoration:none;">
+  <a href="https://github.com/Bhuvi128/Bengaluru-Restaurant-Trends-Analysis/blob/main/Bengaluru%20Restaurant%20Trends%20Analysis%20SQL%20scripts.sql" target="_blank" style="text-decoration:none;">
     <img src="https://img.shields.io/badge/View-MySQL_Script-purple?style=for-the-badge&logo=mysql&logoColor=white" alt="MySQL Script">
   </a>
 </p>
