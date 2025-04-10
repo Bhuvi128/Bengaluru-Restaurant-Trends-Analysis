@@ -2,7 +2,20 @@
 
 ![Restaurant](images/Restaurant.jpg)
 
-## 📖 Project Overview
+## 📑Table of Contents
+
+- [Project Overview](#project-overview)
+- [Data Sources](#data-sources)
+- [Tools](#tools)
+- [Data Cleaning and Preparation](#data-cleaning-and-preparation)
+- [Database & tables creation](#database--tables-creation)
+- [SQL Queries](#sql-queries)
+- [Exploratory Data Analysis (EDA)](#exploratory-data-analysis-eda)
+- [Interactive dashboard](#interactive-dashboard)
+- [Results/Findings](#resultsfindings)
+- [Recommendations](#recommendations)
+
+## 📁Project Overview
 Bengaluru, one of India's largest metropolitan cities, has a thriving food industry with over **12,000 restaurants**. However, high operational costs and intense competition make it difficult for new restaurants to succeed.
 This project aims to analyze restaurant trends, customer preferences, and pricing patterns using the **Bengaluru restaurant database** to help new businesses make data-driven decisions on best locations for restaurants, most popular cuisines, optimal pricing strategies, and Restaurant types with high success rates.
 
