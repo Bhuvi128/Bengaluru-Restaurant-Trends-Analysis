@@ -32,8 +32,8 @@ This project aims to analyze restaurant trends, customer preferences, and pricin
 
 Before importing the tables into the MySQL server, I cleaned and normalized the data using Python by converting data types, handling null values, and restructuring the data into separate, normalized tables. This ensured smooth and efficient integration into the SQL database.
 
-  <a href="https://github.com/Bhuvi128/Hospitality-Revenue-Optimization-Analysis/blob/main/Hospitality%20Revenue%20Optimzation.ipynb" target="_blank" style="text-decoration:none;">
-    <img src="https://img.shields.io/badge/View-Python_Data_Cleaning-orange?style=for-the-badge&logo=jupyter" alt="Python Notebook">
+  <a href="https://github.com/Bhuvi128/Bengaluru-Restaurant-Trends-Analysis/blob/main/Bengaluru%20Restaurant%20data%20normalization%20and%20cleaning.ipynb" target="_blank" style="text-decoration:none;">
+    <img src="https://img.shields.io/badge/View-Python_Data_Cleaning-ff899a?style=for-the-badge&logo=jupyter" alt="Python Notebook">
   </a>
 </p>
 
@@ -134,7 +134,7 @@ order by total_outlets desc;
 ```
 <p>
   <a href="https://github.com/Bhuvi128/Bengaluru-Restaurant-Trends-Analysis/blob/main/Bengaluru%20Restaurant%20Trends%20Analysis%20SQL%20scripts.sql" target="_blank" style="text-decoration:none;">
-    <img src="https://img.shields.io/badge/View-MySQL_Script-purple?style=for-the-badge&logo=mysql&logoColor=white" alt="MySQL Script">
+    <img src="https://img.shields.io/badge/View-MySQL_Script-9be6cf?style=for-the-badge&logo=mysql&logoColor=white" alt="MySQL Script">
   </a>
 </p>
 
@@ -162,8 +162,8 @@ Conducted in-depth exploratory data analysis to uncover restaurant trends, custo
   - Performed hypothesis testing to determine whether there is a statistically significant relationship between restaurant ratings and the number of votes received.
 
 <p>
-  <a href="https://github.com/Bhuvi128/Hospitality-Revenue-Optimization-Analysis/blob/main/Hospitality%20Revenue%20Optimzation.ipynb" target="_blank" style="text-decoration:none;">
-    <img src="https://img.shields.io/badge/View-Python_Notebook-orange?style=for-the-badge&logo=jupyter" alt="Python Notebook">
+  <a href="https://github.com/Bhuvi128/Bengaluru-Restaurant-Trends-Analysis/blob/main/Bengaluru%20Restaurant%20Trends%20Analysis.ipynb" target="_blank" style="text-decoration:none;">
+    <img src="https://img.shields.io/badge/View-Python_Notebook-ffbcc4?style=for-the-badge&logo=jupyter" alt="Python Notebook">
   </a>
 </p>
 
@@ -174,11 +174,11 @@ Built an interactive Tableau dashboard to empower stakeholders with real-time in
 ![Dashboard](Bengaluru_Restaurant_Dashboard.png)<br>
 
 <p>
-  <a href="https://public.tableau.com/app/profile/bhuvanendiran.s/viz/HospitalityRevenueAnalysisDashboard/HospitalityDashboard" target="_blank" style="text-decoration:none;">
-    <img src="https://img.shields.io/badge/View-Dashboard-blue?style=for-the-badge&logo=tableau" alt="View Dashboard">
+  <a href="https://public.tableau.com/app/profile/bhuvanendiran.s/viz/BengaluruRestaurantTrendAnalysisDashboard/BengaluruRestaurantDashboard" target="_blank" style="text-decoration:none;">
+    <img src="https://img.shields.io/badge/View-Dashboard-559f89?style=for-the-badge&logo=tableau" alt="View Dashboard">
   </a>
-   <a href="https://github.com/Bhuvi128/Hospitality-Revenue-Optimization-Analysis/tree/main/Tableau%20dashobard" target="_blank" style="text-decoration:none;">
-    <img src="https://img.shields.io/badge/Download-Dashboard-brightgreen?style=for-the-badge&logo=github" alt="Download Dashboard">
+   <a href="https://github.com/Bhuvi128/Bengaluru-Restaurant-Trends-Analysis/tree/main/Tableau%20Dashboard" target="_blank" style="text-decoration:none;">
+    <img src="https://img.shields.io/badge/Download-Dashboard-babbf6?style=for-the-badge&logo=github" alt="Download Dashboard">
   </a>
 </p>
 
